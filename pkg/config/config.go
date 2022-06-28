@@ -12,6 +12,7 @@ type Config struct {
 	SecretKey  string `toml:"secretKey"`
 	BucketName string `toml:"bucketName"`
 	Region     string `toml:"region"`
+	Tmpdir     string `toml:"tmpdir"`
 }
 
 func LoadConfig(path *string) (Config, error) {

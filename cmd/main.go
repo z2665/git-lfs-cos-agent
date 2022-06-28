@@ -5,17 +5,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"path/filepath"
 
 	"github.com/z2665/git-lfs-cos-agent/pkg/config"
 	"github.com/z2665/git-lfs-cos-agent/pkg/cos"
 	"github.com/z2665/git-lfs-cos-agent/pkg/types"
 	"github.com/z2665/git-lfs-cos-agent/pkg/utils"
 )
-
-var remote string
-var LFSStorageDir = ".git/lfs"
-var tmpdir = filepath.Join(LFSStorageDir, "tmp")
 
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
@@ -43,8 +38,8 @@ func main() {
 		switch req.Event {
 		case "init":
 			writeToStderr(fmt.Sprintf("Initialising rsync agent for: %s\n", req.Operation))
-			os.MkdirAll(tmpdir, 0755)
-			cli.Init(&conf, req.Remote, tmpdir)
+			os.MkdirAll(conf.Tmpdir, 0755)
+			cli.Init(&conf, req.Remote)
 		case "download":
 			writeToStderr(fmt.Sprintf("Received download request for: %s\n", req.Oid))
 			cli.Download(req.Oid, req.Size, req.Action)

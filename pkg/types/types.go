@@ -50,7 +50,7 @@ type ProgressResponse struct {
 }
 
 type Client interface {
-	Init(config *config.Config, remotepath string, tmpdir string) error
+	Init(config *config.Config, remotepath string) error
 	Download(oid string, size int64, a *Action)
 	Upload(oid string, size int64, a *Action, fromPath string)
 	Destory()

@@ -35,7 +35,7 @@ func NewCos(writer, errWriter *bufio.Writer) types.Client {
 	return tmp
 }
 
-func (c *Cos) Init(config *config.Config, remotepath string, tmpdir string) error {
+func (c *Cos) Init(config *config.Config, remotepath string) error {
 	//Init cos client
 	u, err := url.Parse(fmt.Sprintf("https://%s.cos.%s.myqcloud.com", config.BucketName, config.Region))
 	if err != nil {
@@ -53,7 +53,7 @@ func (c *Cos) Init(config *config.Config, remotepath string, tmpdir string) erro
 	})
 	c.cli = cli
 	c.remotepath = remotepath
-	c.tmpdir = tmpdir
+	c.tmpdir = config.Tmpdir
 	// Success!
 	resp := &types.InitResponse{}
 	return c.writer(resp)
